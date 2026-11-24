@@ -1,16 +1,26 @@
 @props([
     'name',
     'label',
-    'type' => 'text',      // any <input> type, or "textarea" / "select"
-    'icon' => null,        // optional icon name from <x-icon>
-    'value' => null,       // default value (old() input wins after a failed submit)
-    'options' => [],       // for type="select": ['value' => 'Label']
+    'type' => 'text',
+    'icon' => null,
+    'value' => null,
+    'options' => [],
     'hint' => null,
-    'bag' => 'default',   // error bag name (see ProfileController)
+    'bag' => 'default',
 ])
 
 {{--
     Reusable form field: label + input + validation error.
+
+    Props:
+      type    any input type, or "textarea" / "select"
+      icon    optional icon name (see components/icon.blade.php)
+      value   default value; old() input wins after a failed submit
+      options for type="select": ['value' => 'Label']
+      bag     error bag name (see ProfileController)
+
+    Note: never write a component tag inside a PHP comment in @props.
+    Blade compiles component tags before PHP runs, even inside comments.
 
     <x-field name="email" label="Email" type="email" icon="mail" />
     <x-field name="body" label="Body" type="textarea" rows="6" />
