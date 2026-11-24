@@ -1,12 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title') · {{ config('app.name', 'Laravel') }}</title>
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    @include('partials.head')
 </head>
 <body class="auth">
     {{--
@@ -25,18 +20,21 @@
                 <span class="brand-name">{{ config('app.name', 'Laravel') }}</span>
             </a>
 
+            {{-- Pages can replace this text with @section('showcase') --}}
             <div class="showcase-copy">
-                <h2>Build faster.<br>Ship with confidence.</h2>
-                <p>Everything your team needs, in one secure place. Sign in to pick up right where you left off.</p>
+                @hasSection('showcase')
+                    @yield('showcase')
+                @else
+                    <h2>Build faster.<br>Ship with confidence.</h2>
+                    <p>Everything your team needs, in one secure place. Sign in to pick up right where you left off.</p>
+                @endif
             </div>
 
-            <figure class="glass-card">
-                <blockquote>“The cleanest dashboard we’ve used. Onboarding took minutes, not days.”</blockquote>
-                <figcaption>
-                    <span class="avatar">AK</span>
-                    <span><strong>Alex Kim</strong><small>Product Lead</small></span>
-                </figcaption>
-            </figure>
+            <ul class="glass-card feature-list">
+                <li><span class="feature-icon"><x-icon name="lock" /></span><span><strong>Secure by default</strong><small>Hashed passwords, CSRF protection and login rate limiting.</small></span></li>
+                <li><span class="feature-icon"><x-icon name="mail" /></span><span><strong>Email verification</strong><small>New accounts confirm their email before getting in.</small></span></li>
+                <li><span class="feature-icon"><x-icon name="shield" /></span><span><strong>Admin panel</strong><small>Manage users and content from one place.</small></span></li>
+            </ul>
         </section>
 
         <section class="auth-panel">

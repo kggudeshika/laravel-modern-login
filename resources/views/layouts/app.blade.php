@@ -1,12 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title') · {{ config('app.name', 'Laravel') }}</title>
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    @include('partials.head')
 </head>
 <body class="app">
     {{-- Layout for pages people see AFTER signing in. --}}
@@ -27,10 +22,15 @@
                 <a href="{{ route('profile.edit') }}" @class(['nav-link', 'is-active' => request()->routeIs('profile.*')])>
                     <x-icon name="user" /> <span>Profile</span>
                 </a>
+                @if (auth()->user()->isAdmin())
+                    <a href="{{ route('admin.dashboard') }}" class="nav-link nav-link-admin">
+                        <x-icon name="shield" /> <span>Admin</span>
+                    </a>
+                @endif
             </nav>
 
             <div class="user-menu">
-                <span class="avatar avatar-sm">{{ str(auth()->user()->name)->explode(' ')->map(fn ($p) => mb_substr($p, 0, 1))->take(2)->implode('') }}</span>
+                <a href="{{ route('profile.edit') }}" title="Your profile"><x-avatar :user="auth()->user()" size="sm" /></a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit" class="btn-ghost" title="Sign out">
@@ -42,11 +42,7 @@
     </header>
 
     <main class="container">
-        @if (session('success'))
-            <div class="alert alert-success flash" role="status">
-                <x-icon name="check" /> {{ session('success') }}
-            </div>
-        @endif
+        @include('partials.flash')
 
         @yield('content')
     </main>

@@ -45,6 +45,7 @@ class RegisterController extends Controller
         Auth::login($user);
         $request->session()->regenerate();
 
-        return redirect()->route('dashboard')->with('success', 'Welcome! Your account has been created.');
+        // The Registered event emails a verification link (User implements MustVerifyEmail).
+        return redirect()->route('verification.notice');
     }
 }

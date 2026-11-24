@@ -1,9 +1,9 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/laravel",
+    "name": "kggudeshika/laravel-modern-login",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "description": "Laravel 13 learning starter: modern sign in, sign up, email verification, password reset, profile picture, CRUD and an admin panel.",
+    "keywords": ["laravel", "authentication", "login", "register", "crud", "admin-panel", "tutorial", "blade"],
     "license": "MIT",
     "require": {
         "php": "^8.3",
